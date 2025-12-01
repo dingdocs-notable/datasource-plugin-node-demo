@@ -7,17 +7,8 @@ app.get('/', (req, res) => {
   res.json(result);
 });
 
-// 添加新的路由处理
-app.get('/api/sheet_meta', (req, res) => {
-  res.json(sheetMetaResult);
-});
-
 app.post('/api/sheet_meta', (req, res) => {
   res.json(sheetMetaResult);
-});
-
-app.get('/api/records', (req, res) => {
-  res.json(recordsResult);
 });
 
 app.post('/api/records', (req, res) => {
