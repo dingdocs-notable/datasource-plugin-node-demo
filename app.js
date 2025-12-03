@@ -20,7 +20,7 @@ app.post('/api/sheet_meta', (req, res) => {
 app.post('/api/records', (req, res) => {
   const body = req.body;
   const { grade, gender } = body;
-  const records = generateRecordsByGradeAndGender(grade, gender);
+  const records = generateRecordsByGradeAndGender(Number(grade), Number(gender));
 
   res.json({
     ...recordsResult,
