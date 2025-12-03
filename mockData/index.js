@@ -1,4 +1,10 @@
-const { v4: uuidv4 } = require('uuid');
+let uuidv4;
+async function init(){
+  const {v4} = await import('uuid');
+  uuidv4 = v4;
+}
+init();
+
 const nameKey = 'wxyf3c29m511396aa9dxi';
 const gradeKey = 'mw8kt145wvmgxxpmzu61o';
 const ageKey = 's6kp2d9471uiv1jsln86o';
@@ -9,11 +15,51 @@ const ethnicityKey = '0f9iaa6uxw2tp65qw9d30';
 // 从JS文件中读取学生数据
 const allStudents = require('./studentInfo');
 
+// 年级映射表
+const gradeMap = {
+  1: '一年级',
+  2: '二年级',
+  3: '三年级',
+  4: '四年级',
+  5: '五年级',
+  6: '六年级'
+};
+
+// 性别映射表
+const genderMap = {
+  1: '男',
+  2: '女'
+};
+
 // 根据年级和性别筛选学生数据的方法
 function generateRecordsByGradeAndGender(grade, gender) {
   // 筛选符合条件的学生数据
   const filteredStudents = allStudents.filter(student => {
-    return student.年级 === grade && student.性别 === gender;
+    // 处理年级筛选条件
+    let gradeMatch = true;
+    if (grade !== 0) {
+      // grade为0表示全部年级，不为0时表示特定年级
+      const targetGrade = gradeMap[grade];
+      if (targetGrade) {
+        gradeMatch = student.grade === targetGrade;
+      } else {
+        gradeMatch = false; // 无效的年级参数
+      }
+    }
+
+    // 处理性别筛选条件
+    let genderMatch = true;
+    if (gender !== 0) {
+      // gender为0表示全部性别，不为0时表示特定性别
+      const targetGender = genderMap[gender];
+      if (targetGender) {
+        genderMatch = student.gender === targetGender;
+      } else {
+        genderMatch = false; // 无效的性别参数
+      }
+    }
+
+    return gradeMatch && genderMatch;
   });
 
   // 将学生数据转换为records格式
@@ -65,6 +111,18 @@ module.exports = {
               {
                 name: '一年级',
                 id: 'of2ect1dchxkq8a0g1yhd'
+              },
+              {
+                name: '四年级',
+                id: 'fourth-grade-id'
+              },
+              {
+                name: '五年级',
+                id: 'fifth-grade-id'
+              },
+              {
+                name: '六年级',
+                id: 'sixth-grade-id'
               }
             ]
           },
@@ -116,6 +174,11 @@ module.exports = {
   recordsResult: {
     code: 0,
     msg: '',
+    data: {
+      hasMore: false,
+      records: [],
+      total: 0
+    }
   },
   generateRecordsByGradeAndGender // 导出新方法
 };
