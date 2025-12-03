@@ -116,23 +116,6 @@ module.exports = {
   recordsResult: {
     code: 0,
     msg: '',
-    data: {
-      hasMore: false, // 是否还有更多数据
-      records: [
-        {
-          fields: {
-            [gradeKey]: '男',
-            [birthDataKey]: '2000-09-13',
-            [nameKey]: '尤娜',
-            [gradeKey]: '一年级',
-            [ageKey]: '25',
-            [ethnicityKey]: '维吾尔族'
-          },
-          id: '5qVNqRQKh1'
-        }
-      ],
-      total: 2 // 字段总数，可选，用于计算当前数据同步进度
-    }
   },
   generateRecordsByGradeAndGender // 导出新方法
 };
