@@ -26,7 +26,7 @@ app.post('/api/records', (req, res) => {
     ...recordsResult,
     data: {
       hasMore: false, // 是否还有更多数据
-      total: 2 // 字段总数，可选，用于计算当前数据同步进度
+      total: 2, // 字段总数，可选，用于计算当前数据同步进度
       records,
     }
   });
